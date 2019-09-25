@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from ctypes import *
 from binascii import *
 
@@ -17,13 +18,13 @@ class Machine:
                 self.op[i[0]](i[1])
 
     def push(self, num):
-        con = self.context
+        con = self.context.copy()
         self.context.append(num)
         print("{} push {}, {}".format(con, num, self.context))
 
     def pop(self, _):
         # assert len(self.context) < 1, 'You should sharpen your coding skill'
-        con = self.context
+        con = self.context.copy()
         result, self.context = self.context[(-1)], self.context[:-1]
         print("{} pop, {}".format(con, self.context))
         return result
@@ -37,21 +38,21 @@ class Machine:
 
     def add(self, _):
         # assert len(self.context) < 2, 'You should sharpen your coding skill'
-        con = self.context
+        con = self.context.copy()
         result, self.context = self.context[(-1)] + self.context[(-2)], self.context[:-2]
         self.context.append(c_int8(result).value)
         print("{} add, {}".format(con, self.context))
 
     def sub(self, _):
         # assert len(self.context) < 2, 'You should sharpen your coding skill'
-        con = self.context
+        con = self.context.copy()
         result, self.context = self.context[(-1)] - self.context[(-2)], self.context[:-2]
         self.context.append(c_int8(result).value)
         print("{} sub, {}".format(con, self.context))
 
     def cmp(self, num):
         # assert len(self.context) < 1, 'You should sharpen your coding skill'
-        print(self.context)
+        # print(self.context)
         print("cmp {} {}".format(self.context[(-1)],  num))
         self.context[-1] = 1 if self.context[(-1)] == num else 0
 

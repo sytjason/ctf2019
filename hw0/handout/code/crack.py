@@ -2,14 +2,8 @@
 from sympy import *
 import random
 
-def op1(p, s):
-    return sum([i * j for i, j in zip(s, p)]) % 256
-
 def op2(m, k):
     return bytes([i ^ j for i, j in zip(m, k)])
-
-def op3(m, p):
-    return bytes([m[p[i]] for i in range(len(m))])
 
 def rop3(m, p):
     return bytes([m[p.index(i)] for i in range(len(m))])
@@ -38,21 +32,6 @@ def stage0(m):
 '''
 Substitution Permutation Network
 '''
-def stage1(m):
-    random.seed('oalieno')
-    k = [int(random.random() * 256) for i in range(16)] #[239,194,15,76,81,87,59,247,160,19,227, 201, 119, 125, 116, 166]
-    p = [i for i in range(16)] 
-    random.shuffle(p) #[2, 11, 8, 5, 7, 12, 6, 13, 14, 9, 3, 10, 15, 1, 0, 4]
-    s = [i for i in range(256)] 
-
-    random.shuffle(s) #[190, 179, 242, 216, 15, 240, 76, 136, 237, 164, 78, 75, 63, 204, 192, 147, 87, 137, 124, 183, 117, 139, 140, 201, 213, 160, 171, 44, 58, 26, 71, 247, 20, 103, 72, 220, 246, 109, 163, 4, 130, 68, 18, 52, 40, 227, 66, 6, 143, 31, 2, 45, 114, 131, 108, 233, 102, 232, 77, 217, 32, 199, 96, 166, 56, 189, 218, 11, 250, 36, 21, 243, 5, 30, 226, 110, 150, 145, 70, 34, 162, 116, 215, 181, 46, 67, 29, 174, 156, 208, 133, 73, 95, 195, 64, 180, 224, 241, 47, 118, 184, 19, 112, 85, 159, 106, 239, 97, 89, 25, 157, 92, 229, 142, 167, 41, 126, 141, 127, 223, 149, 244, 98, 178, 119, 203, 33, 91, 121, 79, 83, 100, 211, 153, 74, 155, 231, 219, 221, 176, 38, 0, 88, 39, 42, 236, 12, 8, 138, 13, 209, 128, 251, 35, 1, 14, 59, 60, 54, 129, 7, 90, 187, 182, 115, 210, 154, 191, 113, 212, 235, 94, 65, 249, 245, 120, 55, 186, 123, 146, 197, 148, 37, 169, 57, 111, 230, 194, 107, 254, 81, 125, 93, 17, 43, 248, 9, 27, 69, 28, 99, 61, 50, 172, 207, 135, 48, 253, 16, 177, 23, 168, 134, 225, 202, 205, 158, 165, 175, 62, 152, 144, 86, 185, 22, 161, 188, 51, 101, 104, 238, 228, 200, 206, 53, 10, 196, 105, 234, 84, 151, 222, 3, 252, 24, 170, 198, 173, 193, 49, 214, 255, 122, 132, 80, 82]
-
-    c = m
-    for i in range(16):
-        c = op2(c, k)
-        c = op3(c, p)
-        c = op4(c, s)
-    return c
 
 def rstage1(m):
     random.seed('oalieno')
@@ -73,22 +52,12 @@ def rstage1(m):
         # c = op4(c, s)
     return c
 
-
-def encrypt(m, key):
-    stage = [stage0, stage1]
-    for i in map(int, f'{key:08b}'):
-        # mm = m
-        m = stage[i](m)
-        # print("stage {}: {} -> {}".format(i, mm, m))
-        # print(m)
-    return m
 def crack(m, key):
     stage = [stage0, rstage1]
     for i in map(int, f'{key:08b}'):
         print("stage:{}".format(i))
         m = stage[i](m)
     return m
-
 
 if __name__ == '__main__':
     cipher = open('cipher.old', 'rb').read()

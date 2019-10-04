@@ -1,0 +1,6 @@
+key1 00408008  1D 13 10 18 51 4C 4F 1C 12 51 0B 08 50 51 50 51  ....QLO..Q..PQPQ  
+     00408018  50 51 50 00 5B 5F 51 5F 2A 1C 0A 43 33 02 54 4D  PQP.[_Q_*..C3.TM  
+
+password: blog.30cm.tw/./././
+
+try year=2019 password: \xde\xd0\xd3\xdb\x92\x8f\x8c\xdf\xd1\x92\xc8\xcb\x93\x92\x93\x92\x93\x92\x93

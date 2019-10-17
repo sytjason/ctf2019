@@ -51,3 +51,5 @@ Student ID: R07922115
 ```
 
 當中的 1D 13 10 ... 50 51 50, 19個 byte 分別和 0x7f xor, 就可以得到 password 為 ``blog.30cm.tw/./././``, 再重新執行一次, 動態把 year 改為 1983, time machine guarder 讓它 safe, 將此密碼輸入到 console, 就可以得到真正的 flag。
+
+另外，若 year 是 2019, 則 ``2*(2019+63) + 0 + 127 = 0x10C3``, 將 0xC3 和 key1 xor 所得到的 password 會超出 ascii table 的範圍 (0x7f)。

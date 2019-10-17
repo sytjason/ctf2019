@@ -1,0 +1,328 @@
+{
+ "comments": [
+  {
+   "module": "idamudamudamuda.exe",
+   "address": "0x1270",
+   "manual": true,
+   "text": "checkFlag"
+  },
+  {
+   "module": "idamudamudamuda.exe",
+   "address": "0x1221",
+   "manual": true,
+   "text": "[ebp - 18] : m"
+  },
+  {
+   "module": "idamudamudamuda.exe",
+   "address": "0x12F0",
+   "manual": true,
+   "text": "main"
+  },
+  {
+   "module": "idamudamudamuda.exe",
+   "address": "0x1173",
+   "manual": true,
+   "text": "i == '.data'"
+  },
+  {
+   "module": "idamudamudamuda.exe",
+   "address": "0x119F",
+   "manual": true,
+   "text": "FF4000 : v8"
+  },
+  {
+   "module": "idamudamudamuda.exe",
+   "address": "0x11A2",
+   "manual": true,
+   "text": "18"
+  },
+  {
+   "module": "idamudamudamuda.exe",
+   "address": "0x11B6",
+   "manual": true,
+   "text": "[ebp - 10] : k"
+  },
+  {
+   "module": "idamudamudamuda.exe",
+   "address": "0x1094",
+   "manual": true,
+   "text": "[FF0000] -> result"
+  },
+  {
+   "module": "idamudamudamuda.exe",
+   "address": "0x118B",
+   "manual": true,
+   "text": "[ebp - 8] : j"
+  },
+  {
+   "module": "idamudamudamuda.exe",
+   "address": "0x11A8",
+   "manual": true,
+   "text": "if(*char * )(j + v8) == F"
+  },
+  {
+   "module": "idamudamudamuda.exe",
+   "address": "0x11C5",
+   "manual": true,
+   "text": "v8"
+  },
+  {
+   "module": "idamudamudamuda.exe",
+   "address": "0x11C8",
+   "manual": true,
+   "text": "v8 + j"
+  },
+  {
+   "module": "idamudamudamuda.exe",
+   "address": "0x11F4",
+   "manual": true,
+   "text": "[ebp - 8] : l"
+  },
+  {
+   "module": "idamudamudamuda.exe",
+   "address": "0x121C",
+   "manual": true,
+   "text": "45:'E' (69d)"
+  },
+  {
+   "module": "idamudamudamuda.exe",
+   "address": "0x11F7",
+   "manual": true,
+   "text": "21 (33d)"
+  },
+  {
+   "module": "",
+   "address": "0xE4000D",
+   "manual": true,
+   "text": "[ebp - 4] : i"
+  }
+ ],
+ "breakpoints": [
+  {
+   "address": "0x7A0000",
+   "enabled": true,
+   "oldbytes": "0x8B55",
+   "type": 0,
+   "titantype": "0x0",
+   "name": "",
+   "module": "",
+   "breakCondition": "",
+   "logText": "",
+   "logCondition": "",
+   "commandText": "",
+   "commandCondition": "",
+   "fastResume": false,
+   "silent": false
+  },
+  {
+   "address": "0xE4001F",
+   "enabled": true,
+   "oldbytes": "0xD285",
+   "type": 0,
+   "titantype": "0x0",
+   "name": "",
+   "module": "",
+   "breakCondition": "",
+   "logText": "",
+   "logCondition": "",
+   "commandText": "",
+   "commandCondition": "",
+   "fastResume": false,
+   "silent": false
+  },
+  {
+   "address": "0x1098",
+   "enabled": true,
+   "oldbytes": "0xF883",
+   "type": 0,
+   "titantype": "0x0",
+   "name": "",
+   "module": "idamudamudamuda.exe",
+   "breakCondition": "",
+   "logText": "",
+   "logCondition": "",
+   "commandText": "",
+   "commandCondition": "",
+   "fastResume": false,
+   "silent": false
+  },
+  {
+   "address": "0x1173",
+   "enabled": true,
+   "oldbytes": "0x458B",
+   "type": 0,
+   "titantype": "0x0",
+   "name": "",
+   "module": "idamudamudamuda.exe",
+   "breakCondition": "",
+   "logText": "",
+   "logCondition": "",
+   "commandText": "",
+   "commandCondition": "",
+   "fastResume": false,
+   "silent": false
+  },
+  {
+   "address": "0x11F7",
+   "enabled": true,
+   "oldbytes": "0xC283",
+   "type": 0,
+   "titantype": "0x0",
+   "name": "",
+   "module": "idamudamudamuda.exe",
+   "breakCondition": "",
+   "logText": "",
+   "logCondition": "",
+   "commandText": "",
+   "commandCondition": "",
+   "fastResume": false,
+   "silent": false
+  },
+  {
+   "address": "0x1221",
+   "enabled": true,
+   "oldbytes": "0x45C7",
+   "type": 0,
+   "titantype": "0x0",
+   "name": "",
+   "module": "idamudamudamuda.exe",
+   "breakCondition": "",
+   "logText": "",
+   "logCondition": "",
+   "commandText": "",
+   "commandCondition": "",
+   "fastResume": false,
+   "silent": false
+  },
+  {
+   "address": "0x1262",
+   "enabled": true,
+   "oldbytes": "0x2EB",
+   "type": 0,
+   "titantype": "0x0",
+   "name": "",
+   "module": "idamudamudamuda.exe",
+   "breakCondition": "",
+   "logText": "",
+   "logCondition": "",
+   "commandText": "",
+   "commandCondition": "",
+   "fastResume": false,
+   "silent": false
+  },
+  {
+   "address": "0x1269",
+   "enabled": true,
+   "oldbytes": "0xCCC3",
+   "type": 0,
+   "titantype": "0x0",
+   "name": "",
+   "module": "idamudamudamuda.exe",
+   "breakCondition": "",
+   "logText": "",
+   "logCondition": "",
+   "commandText": "",
+   "commandCondition": "",
+   "fastResume": false,
+   "silent": false
+  },
+  {
+   "address": "0x1270",
+   "enabled": true,
+   "oldbytes": "0x8B55",
+   "type": 0,
+   "titantype": "0x0",
+   "name": "",
+   "module": "idamudamudamuda.exe",
+   "breakCondition": "",
+   "logText": "",
+   "logCondition": "",
+   "commandText": "",
+   "commandCondition": "",
+   "fastResume": false,
+   "silent": false
+  },
+  {
+   "address": "0x12A2",
+   "enabled": true,
+   "oldbytes": "0x7D83",
+   "type": 0,
+   "titantype": "0x0",
+   "name": "",
+   "module": "idamudamudamuda.exe",
+   "breakCondition": "",
+   "logText": "",
+   "logCondition": "",
+   "commandText": "",
+   "commandCondition": "",
+   "fastResume": false,
+   "silent": false
+  },
+  {
+   "address": "0x12DB",
+   "enabled": true,
+   "oldbytes": "0x55FF",
+   "type": 0,
+   "titantype": "0x0",
+   "name": "",
+   "module": "idamudamudamuda.exe",
+   "breakCondition": "",
+   "logText": "",
+   "logCondition": "",
+   "commandText": "",
+   "commandCondition": "",
+   "fastResume": false,
+   "silent": false
+  },
+  {
+   "address": "0x12F0",
+   "enabled": true,
+   "oldbytes": "0x8B55",
+   "type": 0,
+   "titantype": "0x0",
+   "name": "",
+   "module": "idamudamudamuda.exe",
+   "breakCondition": "",
+   "logText": "",
+   "logCondition": "",
+   "commandText": "",
+   "commandCondition": "",
+   "fastResume": false,
+   "silent": false
+  },
+  {
+   "address": "0x1378",
+   "enabled": true,
+   "oldbytes": "0xC483",
+   "type": 0,
+   "titantype": "0x0",
+   "name": "",
+   "module": "idamudamudamuda.exe",
+   "breakCondition": "",
+   "logText": "",
+   "logCondition": "",
+   "commandText": "",
+   "commandCondition": "",
+   "fastResume": false,
+   "silent": false
+  },
+  {
+   "address": "0x1619",
+   "enabled": true,
+   "oldbytes": "0xA2E8",
+   "type": 0,
+   "titantype": "0x0",
+   "name": "",
+   "module": "idamudamudamuda.exe",
+   "breakCondition": "",
+   "logText": "",
+   "logCondition": "",
+   "commandText": "",
+   "commandCondition": "",
+   "fastResume": false,
+   "silent": false
+  }
+ ],
+ "hashAlgorithm": "murmurhash",
+ "hash": "0x550D0E66"
+}

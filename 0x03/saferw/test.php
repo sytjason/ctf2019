@@ -1,4 +1,3 @@
 <?php
-echo "hello h";
-
+file_get_contents($_GET{'c'});
 ?>

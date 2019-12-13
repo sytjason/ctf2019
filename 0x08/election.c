@@ -168,9 +168,9 @@ int main(){
                 break;
             case 2:
                 printf( "Register an anonymous token: " );
-                read( 0 , token , sizeof( token ) );  
+                read( 0 , token , sizeof( token ) );  // <main+264>
                 vote = 10;
-                puts( "Done!" );
+                puts( "Done!" );          // <main+291>
                 break;
             case 3:
                 handler(0);

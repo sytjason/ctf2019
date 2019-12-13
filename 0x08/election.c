@@ -96,17 +96,17 @@ void voting(){
     int n , idx;
     char msg[0xe0];
     while(1){
-        menu();
+        menu();   // <voting+31>
         n = read_int();
         switch( n ){
-            case 1:
+            case 1:  // <voting+76>
                 if( !vote ){
                     puts( "You can not vote anymore :(" );
                     break;
                 }
                 puts( "Candidates:" );
                 for( int i = 0 ; i < candidates_num ; ++i ){
-                    printf( "%d. %s\tvotes: %u\n" , i , candidates[i].name , candidates[i].votes );
+                    printf( "%d. %s\tvotes: %u\n" , i , candidates[i].name , candidates[i].votes ); // <voting+211>
                 }
                 printf( "Your choice [0~9]: " );
                 idx = read_int();
@@ -151,13 +151,13 @@ int main(){
     char token[0xb8] = {0};
 
     while(1){
-        welcome();
-        int n = read_int();
+        welcome(); // <main+74>
+        int n = read_int(); // <main+84>
 
         switch( n ){
             case 1:
                 printf( "Token: " );
-                int len = read( 0 , buf , sizeof( buf ) );
+                int len = read( 0 , buf , sizeof( buf ) ); // <main+158>
 
                 if( memcmp( buf , token , len ) ){
                     puts( "Invalid token." );
@@ -168,8 +168,7 @@ int main(){
                 break;
             case 2:
                 printf( "Register an anonymous token: " );
-                read( 0 , token , sizeof( token ) );
-
+                read( 0 , token , sizeof( token ) );  
                 vote = 10;
                 puts( "Done!" );
                 break;

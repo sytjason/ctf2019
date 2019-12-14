@@ -159,7 +159,7 @@ int main(){
                 printf( "Token: " );
                 int len = read( 0 , buf , sizeof( buf ) ); // <main+158>
 
-                if( memcmp( buf , token , len ) ){
+                if( memcmp( buf , token , len ) ){  // <main+192 >
                     puts( "Invalid token." );
                     break;
                 }

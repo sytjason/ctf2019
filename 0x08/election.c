@@ -128,12 +128,12 @@ void voting(){
                     break;
                 }
                 printf( "To %s:\nMessage: " , candidates[idx].name );
-                read( 0 , msg , candidates[idx].votes );
+                read( 0 , msg , candidates[idx].votes ); // <voting+587>
                 puts( "Done!" );
                 break;
                 
             case 3:
-                return;
+                return; //<voting+645>   
                 
             default:
                 puts( ":)" );
@@ -164,8 +164,8 @@ int main(){
                     break;
                 }
 
-                voting();            
-                break;
+                voting();           
+                break;    // <main+225>
             case 2:
                 printf( "Register an anonymous token: " );
                 read( 0 , token , sizeof( token ) );  // <main+264>

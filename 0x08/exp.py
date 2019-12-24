@@ -2,10 +2,10 @@
 from pwn import * 
 context.arch = 'amd64'
 
-r = process('./election', env={"LD_PRELOAD": "./libc.so"})
+#r = process('./election', env={"LD_PRELOAD": "./libc.so"})
 
 # nc edu-ctf.csie.org 10180
-# r = remote('edu-ctf.csie.org', 10180)
+r = remote('edu-ctf.csie.org', 10180)
 pause()
 
 ############################### round 1 -----------------------> leak addresses

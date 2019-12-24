@@ -1,3 +1,4 @@
 secrete_function: 0x8420736
+exit@got : 0x08422024
 
 main: 0x84207fb

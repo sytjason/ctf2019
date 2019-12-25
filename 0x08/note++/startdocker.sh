@@ -1,4 +1,5 @@
 #!/bin/bash
 
-docker run -d --rm -h ctf2019 --name notepp -v ~/Documents/ctf2019:/ctf/work -p 23946:23946 --cap-add=SYS_PTRACE skysider/pwndocker
+docker run -idt -v /home/jason/Documents/ctf2019:/root/workdir --name ctf-16.04 --privileged --security-opt seccomp:unconfined ctf-16.04
+docker start ctf-16.04
 

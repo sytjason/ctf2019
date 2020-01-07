@@ -35,3 +35,28 @@ Student ID: R07922115
 跳回``main``之後再用相同的方式造ROP chain讓它去執行``system(sh)``, 如下圖
 
 ![](/home/jason/Pictures/Screenshot_20191226_040358.png)
+
+## Note++
+
+### Introduction
+
+在``add()``當中``scanf("%48s", notes[i].description)``可以觀察到當它輸入48個字到description之後, 它會在緊接在後接一個null byte, 而剛好那個位置就是``notes[i].is_freed``, 所以可以就有use after free的漏洞。再者, 在``add()``當中的``read_input(notes[i].data, size - 1)``可以發現若``size = 0``則``size - 1``會是一個很大的數, 就可以任意覆蓋heap的資訊。 這題的解法就是利用上述漏洞想辦法造出一個unsorted bin, 並且將它use after free進而leak出libc base address, 然後再用上述漏洞配合fastbin attack的技巧將上課所交的onegadget位址寫入``__malloc_hook``當中, 想辦法讓它invoke double free的failure然後就可以得到shell了。
+
+### leak libc base
+
+課堂當中有提到, 若把一個small bin free掉, 它會把某個libc address存放在裡面, 所以總目標就是將它print出來。因為程式當中有把大於``0x78``的size排除, 所以我們一次只能allocate一個fastbin, 為了將它變成small bin, 我可以先隨意新增一個最小size(0x10)的note(note0), 然後在note1後面新增兩個大小為``0x50``的note, note1及note2, 將note0 delete掉, 再新增size為0的note, 此時它會變成新的note0, 它就會使用原本存放note0.data的heap chunk, 又因為其size為0, 我就可以輸入任意size個字, 把note1的chunk header當中的size改為note1及note2的size的加總並且把``P flag``設為1, 所以就把chunk header設成``0xc1``, 此時我們就擁有一個small bin了。
+
+![](/home/jason/Pictures/Screenshot_20200102_175331.png)
+
+此時, 我們若delete note1, delete note0再新增note0且其輸入48個字到其description, 就可以把它的``is_freed``改為0然後呼叫``list()``, 就可以成功把libc base address leak出來了。
+
+![](/home/jason/Pictures/Screenshot_20200102_181406.png)
+
+### Invoke OneGadget
+
+這邊是參考課堂上的作法, 但這邊多新增了一個note, note4, 是為了將note5的``is_freed``改為0進而讓note5可以double delete然後進行fastbin attack, 將fake\_chunk指到``__malloc_hook - 0x10 - 3``的位址, 將OneGadget得出的address寫到裡面, 最後delete note1就可以成功開一個shell了。
+
+
+
+
+

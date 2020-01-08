@@ -31,6 +31,7 @@ def decrypt(pri):
     c = int(input())
     m = pow(c, d, n)
     print(f'm = {m % (2 ** 4)}')
+    # print(m)
 
 def main():
     pub, pri = genkeys()

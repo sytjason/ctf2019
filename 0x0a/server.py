@@ -11,6 +11,7 @@ def genkeys():
         n, phi = p * q, (p - 1) * (q - 1)
         if GCD(e, phi) == 1:
             d = inverse(e, phi)
+            print("d: {}".format(d))
             return (n, e), (n, d)
 
 def menu():
@@ -30,12 +31,14 @@ def decrypt(pri):
     n, d = pri
     c = int(input())
     m = pow(c, d, n)
-    print(f'm = {m % (2 ** 4)}')
+    # print(f'm = {m % (2 ** 4)}')
+    print(f'm = {m % 2}')
     # print(m)
 
 def main():
     pub, pri = genkeys()
     for _ in range(1024 // 4 + 5):
+    # for _ in range(1060):
         menu()
         cmd = input('> ')
         if cmd == '1':
